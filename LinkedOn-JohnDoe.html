@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Doe | Professional Profile - LinkedOn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .top-banner {
+            background: white;
+            padding: 12px 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .banner-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .content-wrapper {
+            padding: 0 20px 20px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 24px;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-banner {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .header-banner::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 30px); }
+        }
+
+        .profile-header {
+            padding: 0 32px 32px 32px;
+            position: relative;
+        }
+
+        .profile-photo-wrapper {
+            width: 160px;
+            height: 160px;
+            position: absolute;
+            top: -80px;
+            left: 32px;
+        }
+
+        .profile-photo {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            border: 6px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            font-weight: bold;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-info {
+            margin-left: 190px;
+            padding-top: 20px;
+        }
+
+        .profile-name {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .profile-headline {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .profile-meta {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .profile-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9ff;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 32px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .about-text {
+            color: #444;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .experience-item {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 32px;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+        }
+
+        .experience-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 18px;
+            width: 2px;
+            height: calc(100% - 12px);
+            background: linear-gradient(180deg, #667eea, transparent);
+        }
+
+        .experience-item:last-child::after {
+            display: none;
+        }
+
+        .exp-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+
+        .exp-company {
+            font-size: 15px;
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .exp-date {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .exp-description {
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        .exp-description li {
+            padding: 8px 0 8px 24px;
+            color: #555;
+            line-height: 1.6;
+            position: relative;
+            font-size: 14px;
+        }
+
+        .exp-description li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #667eea;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .related-profile {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .related-profile:hover {
+            background: rgba(102, 126, 234, 0.05);
+            transform: translateX(4px);
+        }
+
+        .related-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .related-info .name {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+
+        .related-info .title {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .stats-card {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 12px;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-info {
+                margin-left: 0;
+                margin-top: 90px;
+            }
+            
+            .profile-photo-wrapper {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-banner">
+        <div class="banner-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">LO</div>
+                <span class="logo-text">LinkedOn</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+    <div class="container">
+        <div class="main-content">
+            <!-- Profile Header Card -->
+            <div class="card">
+                <div class="header-banner"></div>
+                <div class="profile-header">
+                    <div class="profile-photo-wrapper">
+                        <div class="profile-photo">JD</div>
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="profile-name">John Doe</h1>
+                        <div class="profile-headline">
+                            Program Analyst for Contractors, Inc. at Centers for Medicare & Medicaid Services (CMS)
+                        </div>
+                        <div class="profile-meta">
+                            <span>📍 Washington, DC</span>
+                            <span>🏛️ Government Administration</span>
+                            <span class="badge">Available for Consulting</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary">🤝 Connect</button>
+                            <button class="btn btn-secondary">✉️ Message</button>
+                            <button class="btn btn-secondary">⋯ More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Section -->
+            <div class="card">
+                <div class="section">
+                    <h2 class="section-title">About</h2>
+                    <p class="about-text">
+                        Dedicated public sector professional with extensive experience in healthcare policy,
+                        program analysis, and data-driven decision making. Passionate about leveraging analytics
+                        and evidence-based approaches to improve healthcare outcomes for Medicare and Medicaid
+                        beneficiaries across the nation. Committed to transparency, efficiency, and excellence
+                        in government service.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Experience Section -->
+            <div class="card">
+                <div class="section">
+                    <h2 class="section-title">Experience</h2>
+                    
+                    <div class="experience-item">
+                        <div class="exp-title">Program Analyst</div>
+                        <div class="exp-company">Contractors, Inc. at Centers for Medicare & Medicaid Services (CMS)</div>
+                        <div class="exp-date">2020 – Present · 4 years</div>
+                        <ul class="exp-description">
+                            <li>Lead comprehensive healthcare program analyses to optimize efficiency and patient outcomes across multiple initiatives</li>
+                            <li>Collaborate with cross-functional teams including clinical experts, data scientists, and policy makers on strategic initiatives</li>
+                            <li>Design and implement performance measurement frameworks, resulting in 25% improvement in reporting accuracy</li>
+                            <li>Present findings to senior leadership and contribute to evidence-based policy recommendations</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="exp-title">Policy Research Associate</div>
+                        <div class="exp-company">Health Policy Solutions</div>
+                        <div class="exp-date">2018 – 2020 · 2 years</div>
+                        <ul class="exp-description">
+                            <li>Conducted policy research and analysis on healthcare delivery systems and payment models</li>
+                            <li>Supported development of white papers and policy briefs for federal and state clients</li>
+                            <li>Analyzed Medicaid program data to identify trends and improvement opportunities</li>
+                            <li>Assisted in stakeholder engagement and facilitated focus groups with healthcare providers</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="exp-title">Public Health Intern</div>
+                        <div class="exp-company">Department of Health and Human Services</div>
+                        <div class="exp-date">Summer 2019 · 3 months</div>
+                        <ul class="exp-description">
+                            <li>Supported health equity initiatives and community outreach programs</li>
+                            <li>Compiled data and created reports on public health program outcomes</li>
+                            <li>Assisted with program evaluation and quality improvement projects</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education Section -->
+            <div class="card">
+                <div class="section">
+                    <h2 class="section-title">Education</h2>
+                    
+                    <div class="experience-item">
+                        <div class="exp-title">Master of Public Health (MPH)</div>
+                        <div class="exp-company">Johns Hopkins Bloomberg School of Public Health</div>
+                        <div class="exp-date">2020 – 2022</div>
+                        <ul class="exp-description">
+                            <li>Concentration: Health Policy and Management</li>
+                            <li>Capstone: Evaluating Value-Based Payment Models in Medicare</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="exp-title">Bachelor of Science in Public Health</div>
+                        <div class="exp-company">University of North Carolina at Chapel Hill</div>
+                        <div class="exp-date">2016 – 2020</div>
+                        <ul class="exp-description">
+                            <li>Minor: Health Economics</li>
+                            <li>Graduated Magna Cum Laude</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="exp-title">Certifications</div>
+                        <div class="exp-company">Professional Development</div>
+                        <div class="exp-date">2020 – Present</div>
+                        <ul class="exp-description">
+                            <li>Certified Healthcare Data Analyst (CHDA) – American Health Information Management Association</li>
+                            <li>Project Management Professional (PMP) – Project Management Institute</li>
+                            <li>Federal Acquisition Certification in Contracting (FAC-C) – Level I</li>
+                            <li>Lean Six Sigma Green Belt – American Society for Quality</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Section -->
+            <div class="card">
+                <div class="section">
+                    <h2 class="section-title">Skills & Expertise</h2>
+                    <div class="skills-grid">
+                        <div class="skill-tag">Healthcare Policy Analysis</div>
+                        <div class="skill-tag">Program Evaluation</div>
+                        <div class="skill-tag">Data Analysis & Reporting</div>
+                        <div class="skill-tag">Stakeholder Collaboration</div>
+                        <div class="skill-tag">Strategic Planning</div>
+                        <div class="skill-tag">Performance Metrics</div>
+                        <div class="skill-tag">Quality Improvement</div>
+                        <div class="skill-tag">Federal Regulations</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Stats Card -->
+            <div class="card">
+                <div class="section">
+                    <h2 class="section-title">Profile Strength</h2>
+                    <div class="stats-card">
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Connections</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">1.2K</div>
+                            <div class="stat-label">Followers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Profiles -->
+            <div class="card">
+                <div class="section">
+                    <h2 class="section-title">People Also Viewed</h2>
+                    
+                    <div class="related-profile">
+                        <div class="related-avatar">MH</div>
+                        <div class="related-info">
+                            <div class="name">Michael Harris</div>
+                            <div class="title">Senior Program Analyst</div>
+                        </div>
+                    </div>
+
+                    <div class="related-profile">
+                        <div class="related-avatar">RL</div>
+                        <div class="related-info">
+                            <div class="name">Robert Lee</div>
+                            <div class="title">Data Scientist at CMS</div>
+                        </div>
+                    </div>
+
+                    <div class="related-profile">
+                        <div class="related-avatar">MG</div>
+                        <div class="related-info">
+                            <div class="name">Maria Gonzalez</div>
+                            <div class="title">Program Manager at FDA</div>
+                        </div>
+                    </div>
+
+                    <div class="related-profile">
+                        <div class="related-avatar">AK</div>
+                        <div class="related-info">
+                            <div class="name">Alex Kim</div>
+                            <div class="title">Healthcare Consultant</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // Replace these with your own base64 strings
+        const base64ProfileImage = "data:image/png;base64,";
+        const base64BannerImage = "data:image/png;base64,";
+
+        // Set the profile photo
+        const profilePhoto = document.querySelector('.profile-photo');
+        if (base64ProfileImage && base64ProfileImage !== "data:image/png;base64,") {
+            profilePhoto.style.backgroundImage = `url('${base64ProfileImage}')`;
+            profilePhoto.textContent = ''; // Remove the "JD" text when image is loaded
+        }
+
+        // Set the banner image
+        const headerBanner = document.querySelector('.header-banner');
+        if (base64BannerImage && base64BannerImage !== "data:image/png;base64,") {
+            headerBanner.style.backgroundImage = `url('${base64BannerImage}')`;
+        }
+    </script>
+</body>
+</html>
