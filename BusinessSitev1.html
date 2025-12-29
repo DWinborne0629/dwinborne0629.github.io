@@ -277,52 +277,56 @@
             line-height: 1.6;
         }
 
-        /* Org Chart Section */
+        /* Pyramid Org Chart Section */
         .org-chart {
             background: white;
             padding: 50px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
         }
 
-        .org-level {
+        .org-row {
             display: flex;
             justify-content: center;
-            margin-bottom: 40px;
+            gap: 40px;
             position: relative;
         }
 
-        .org-level::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 40px;
-            background: #c4a661;
+        /* CEO Level - Top of Pyramid */
+        .org-row.level-1 {
+            width: 100%;
         }
 
-        .org-level:last-child::after {
-            display: none;
+        /* Executive Level - Middle of Pyramid */
+        .org-row.level-2 {
+            width: 100%;
         }
 
-        .org-level-2 {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            margin-bottom: 40px;
+        /* Department Level - Bottom of Pyramid */
+        .org-row.level-3 {
+            width: 100%;
         }
 
         .org-member {
             background: white;
-            border: 2px solid #c4a661;
+            border: 2px solid #e0e0e0;
             border-radius: 8px;
-            padding: 25px;
-            width: 250px;
+            padding: 25px 20px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             position: relative;
+            min-width: 200px;
+        }
+
+        .org-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border-color: #c4a661;
         }
 
         .org-member.ceo {
@@ -331,40 +335,40 @@
             border-color: #c4a661;
         }
 
-        .org-member.highlighted {
-            background: white;
-            color: #2c3e50;
-            border-color: #c4a661;
-        }
-
         .member-photo {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             margin: 0 auto 15px auto;
             background: linear-gradient(135deg, #2c3e50, #3498db);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px;
+            font-size: 28px;
             font-weight: bold;
             color: white;
-            border: 4px solid white;
+            border: 3px solid white;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             background-size: cover;
             background-position: center;
         }
 
+        .org-member.ceo .member-photo {
+            width: 100px;
+            height: 100px;
+            font-size: 36px;
+        }
+
         .member-name {
-            font-size: 20px;
+            font-size: 17px;
             font-weight: bold;
             margin-bottom: 5px;
         }
 
         .member-title {
-            font-size: 14px;
+            font-size: 13px;
             color: #7f8c8d;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-style: italic;
         }
 
@@ -372,12 +376,8 @@
             color: #c4a661;
         }
 
-        .org-member.highlighted .member-title {
-            color: #7f8c8d;
-        }
-
         .member-dept {
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: #95a5a6;
@@ -387,8 +387,25 @@
             color: #ecf0f1;
         }
 
-        .org-member.highlighted .member-dept {
-            color: #95a5a6;
+        /* Connecting Lines - SVG Overlay */
+        .org-chart-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .connection-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .org-chart {
+            position: relative;
+            z-index: 1;
         }
 
         /* Contact Section */
@@ -510,6 +527,11 @@
             
             .nav-links {
                 display: none;
+            }
+
+            .org-row {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
@@ -643,63 +665,71 @@
             <h2 class="section-title">Leadership Team</h2>
             <p class="section-subtitle">Meet Our Executive Leadership</p>
             
-            <div class="org-chart">
-                <!-- CEO Level -->
-                <div class="org-level">
-                    <div class="org-member ceo">
-                        <div class="member-photo">RJ</div>
-                        <div class="member-name">Robert Johnson</div>
-                        <div class="member-title">Chief Executive Officer</div>
-                        <div class="member-dept">Executive Leadership</div>
+            <div class="org-chart-container">
+                <svg class="connection-lines" width="100%" height="600" style="position: absolute; top: 0; left: 0;">
+                    <!-- Line from CEO to COO -->
+                    <line x1="50%" y1="130" x2="33%" y2="250" stroke="#c4a661" stroke-width="2"/>
+                    <!-- Line from CEO to CFO -->
+                    <line x1="50%" y1="130" x2="67%" y2="250" stroke="#c4a661" stroke-width="2"/>
+                    
+                    <!-- Lines from COO to department members -->
+                    <line x1="33%" y1="330" x2="20%" y2="450" stroke="#c4a661" stroke-width="2"/>
+                    <line x1="33%" y1="330" x2="33%" y2="450" stroke="#c4a661" stroke-width="2"/>
+                    
+                    <!-- Line from CFO to department member -->
+                    <line x1="67%" y1="330" x2="67%" y2="450" stroke="#c4a661" stroke-width="2"/>
+                </svg>
+                
+                <div class="org-chart">
+                    <!-- CEO Level - Top of Pyramid -->
+                    <div class="org-row level-1">
+                        <div class="org-member ceo">
+                            <div class="member-photo">RJ</div>
+                            <div class="member-name">Robert Johnson</div>
+                            <div class="member-title">Chief Executive Officer</div>
+                            <div class="member-dept">Executive Leadership</div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Executive Level -->
-                <div class="org-level-2">
-                    <div class="org-member">
-                        <div class="member-photo">MH</div>
-                        <div class="member-name">Michael Harris</div>
-                        <div class="member-title">Chief Operating Officer</div>
-                        <div class="member-dept">Operations</div>
-                    </div>
-                    
-                    <div class="org-member">
-                        <div class="member-photo">SR</div>
-                        <div class="member-name">Susan Richardson</div>
-                        <div class="member-title">Chief Financial Officer</div>
-                        <div class="member-dept">Finance</div>
-                    </div>
-                    
-                    <div class="org-member">
+                    <!-- Executive Level - Middle of Pyramid -->
+                    <div class="org-row level-2">
                         <div class="org-member">
-                        <div class="member-photo">DM</div>
-                        <div class="member-name">David Martinez</div>
-                        <div class="member-title">VP of Healthcare Services</div>
-                        <div class="member-dept">Healthcare Services</div>
+                            <div class="member-photo">MH</div>
+                            <div class="member-name">Michael Harris</div>
+                            <div class="member-title">Chief Operating Officer</div>
+                            <div class="member-dept">Operations</div>
+                        </div>
+                        
+                        <div class="org-member">
+                            <div class="member-photo">SR</div>
+                            <div class="member-name">Susan Richardson</div>
+                            <div class="member-title">Chief Financial Officer</div>
+                            <div class="member-dept">Finance</div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Department Level -->
-                <div class="org-level-2">
-                    <div class="org-member">
-                        <div class="member-photo" id="profilePhoto">JD</div>
-                        <div class="member-name">John Doe</div>
-                        <div class="member-title">Program Analyst</div>
-                        <div class="member-dept">Federal Programs</div>
-                    </div>
-                    
-                    <div class="org-member">
-                        <div class="member-photo">AL</div>
-                        <div class="member-name">Amanda Lee</div>
-                        <div class="member-title">Senior Consultant</div>
-                        <div class="member-dept">Clinical Services</div>
-                    </div>
-                    
-                    <div class="org-member">
-                        <div class="member-photo">JW</div>
-                        <div class="member-name">James Wilson</div>
-                        <div class="member-title">Compliance Director</div>
-                        <div class="member-dept">Quality & Compliance</div>
+                    <!-- Department Level - Bottom of Pyramid -->
+                    <div class="org-row level-3">
+                        <div class="org-member">
+                            <div class="member-photo" id="profilePhoto">JD</div>
+                            <div class="member-name">John Doe</div>
+                            <div class="member-title">Program Analyst</div>
+                            <div class="member-dept">Federal Programs</div>
+                        </div>
+                        
+                        <div class="org-member">
+                            <div class="member-photo">AL</div>
+                            <div class="member-name">Amanda Lee</div>
+                            <div class="member-title">Senior Consultant</div>
+                            <div class="member-dept">Clinical Services</div>
+                        </div>
+                        
+                        <div class="org-member">
+                            <div class="member-photo">JW</div>
+                            <div class="member-name">James Wilson</div>
+                            <div class="member-title">Compliance Director</div>
+                            <div class="member-dept">Quality & Compliance</div>
+                        </div>
                     </div>
                 </div>
             </div>
